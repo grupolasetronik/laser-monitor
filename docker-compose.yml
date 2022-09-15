@@ -20,7 +20,7 @@ services:
     restart: always
     
     volumes:
-      - ./src:/home
+      - ./:/home
     networks:
       ltk_net:
         ipv4_address: 172.19.0.3

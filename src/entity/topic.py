@@ -12,73 +12,43 @@ class Topic:
         self.cache:list = []
 
     def to_dict(self):
-        d = {
-                "variables":self.variables,
-                "cache":self.cache
-            }
-        
-        return d
+    
+        return {"variables":self.variables,"cache":self.cache }
 
-    def add_in_cache(self,item:dict):
-        self.cache.append(item)
-        
-    def delete_from_cache_by_key(self,cache_key:str):
-        pass
     
-    def get_from_cache_by_key(self,cache_key:str) -> dict:
-        pass
-    
-    def update_from_cache_by_key(self,cache_key:str,item:dict):
-        pass
-    
-    def get_cache_items(self,asc:bool) -> List[dict]:
-        pass
-    
-    def clear_cache(self):
-        pass
-    
-    def set_variable(self,key:str):
-        pass
-    
-    def get_variable(self,key:str) -> dict:
-        pass
-    
-    def get_all_variables(self) -> List[dict]:
-        pass
-    
-    def delete_variable(self,key:str):
-        pass
-    
-    def update_variable(self,key:str,value:str):
-        pass
-
 class TopicRepository(ABC):
     @abstractmethod
-    def get_topic_variables(self,topic:Topic):
+    def create_topic(self, topic: Topic) -> Topic:
         pass
     
     @abstractmethod
-    def get_topic_cache(self,topic:Topic):
+    def get_all_topics(self):
+        pass
+
+    @abstractmethod   
+    def delete_topic(self, key: str):
+        pass
+
+    @abstractmethod
+    def create_variable(self,key_topic:str,key_variable:str,value:str):
         pass
     
     @abstractmethod
-    def update_topic_variable(self,variable:str,value:str):
+    def get_variables(self, key_topic: str, variables_key: List[str]) -> dict:
         pass
     
     @abstractmethod
-    def update_topic_item(self)
-    
-    
-    @abstractmethod
-    def create_topic(self,topic:Topic) -> Topic:
+    def update_variables(self, key_topic: str, variable_key: str, value: dict):
         pass
-    
+
     @abstractmethod
-    def get_all_topics(self) -> list:
+    def delete_variable(self, key_topic: str, variable_key: str):
         pass
-    
+        
     @abstractmethod
-    def delete_topic(self,topic:Topic):
+    def put_in_cache(self, key_topic: str, item: dict):
         pass
-    
-    
+
+    @abstractmethod
+    def get_in_cache(self,key_topic:str,timeout:int):
+        pass
