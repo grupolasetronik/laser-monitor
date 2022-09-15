@@ -1,0 +1,36 @@
+version: '3'
+services:
+  cache:
+    container_name: redis
+    image: redis:6.2-alpine
+    restart: always
+    
+    networks:
+      ltk_net:
+        ipv4_address: 172.19.0.2
+    command: redis-server --save 20 1 --loglevel warning --requirepass Quartz00
+    ports:
+      - '6379:6379'
+    volumes: 
+      - ./cache:/data
+
+  server:
+    container_name: server
+    build: .
+    restart: always
+    
+    volumes:
+      - ./src:/home
+    networks:
+      ltk_net:
+        ipv4_address: 172.19.0.3
+    ports:
+      - '8000:8000'
+      
+networks:
+  ltk_net:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: "172.19.0.0/24"

@@ -1,0 +1,7 @@
+{
+    "topic_name":"ipva_relatorio",
+    "data":{
+        "veiculo":"abc1234",
+        "valor":1000
+    }
+}
