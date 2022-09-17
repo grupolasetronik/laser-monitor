@@ -1,5 +1,18 @@
 version: '3'
 services:
+
+  sql-server-db:
+    container_name: sql-server-db
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    ports:
+      - "1433:1433"
+    environment:
+      SA_PASSWORD: "Quartz00"
+      ACCEPT_EULA: "Y"
+    volumes:
+      - ./db:/var/opt/mssql/data
+
+      
   cache:
     container_name: redis
     image: redis:6.2-alpine
@@ -12,7 +25,7 @@ services:
     ports:
       - '6379:6379'
     volumes: 
-      - ./cache:/data
+      - lasermonitor_redis:/data
 
   server:
     container_name: server
@@ -20,13 +33,16 @@ services:
     restart: always
     
     volumes:
-      - ./:/home
+      - ./src:/home
     networks:
       ltk_net:
         ipv4_address: 172.19.0.3
     ports:
       - '8000:8000'
-      
+volumes:
+  lasermonitor_sql-server:
+  lasermonitor_redis:
+
 networks:
   ltk_net:
     driver: bridge
@@ -34,3 +50,5 @@ networks:
       driver: default
       config:
         - subnet: "172.19.0.0/24"
+
+
