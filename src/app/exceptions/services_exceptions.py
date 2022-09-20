@@ -1,0 +1,13 @@
+class ServiceException(Exception):
+    ...
+
+class GetTopicServiceException(ServiceException):
+    ...
+
+
+class UserNotFoundException(ServiceException):
+    ...
+
+
+class CreateInputMessageException(ServiceException):
+   ...
